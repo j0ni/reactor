@@ -2,6 +2,11 @@
 # Script to make a new quantum project
 # Jack Humbert 2015
 
+if [ -z "$1" ]; then
+	echo "Usage: $0 <keyboard_name>"
+	exit 1
+fi
+
 KEYBOARD=$1
 KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
 
@@ -12,8 +17,7 @@ sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboard/$KEYBOA
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboard/$KEYBOARD/config.h
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/README.md > keyboard/$KEYBOARD/README.md
 sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboard/$KEYBOARD/Makefile
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/keymap_default.c > keyboard/$KEYBOARD/keymaps/keymap_default.c
-cp quantum/template/bootloader.hex keyboard/$KEYBOARD/bootloader.hex
+sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default.c > keyboard/$KEYBOARD/keymaps/default.c
 
 echo "######################################################"
 echo "# keyboard/$KEYBOARD project created. To start"
